@@ -1,6 +1,8 @@
+# require 'pry'
+
 class Patient
 
-    attr_accessor :name
+    attr_accessor :name, :appointment
 
     @@all = []
 
@@ -13,20 +15,20 @@ class Patient
         @@all
     end
 
-    def new_appointment(date, doctor)
+    def new_appointment(doctor, date)
         Appointment.new(date, self, doctor)
     end
 
     def appointments
-        Appointment.all.select do |appointment|
-            appointment.patient == self
-        end
+        Appointment.all.select {|appointment|
+            appointment.patient == self}
     end
 
     def doctors
-        appointments.map do |appointment|
-            appointment.doctor
-        end
+        appointments.collect {|appointment|
+            appointment.doctor}
     end
 
 end
+
+# binding.pry
